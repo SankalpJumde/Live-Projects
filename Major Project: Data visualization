@@ -1,0 +1,62 @@
+full_line = ''
+comma = ','
+seperator = '|'
+data_cats = []
+data_nums = []
+
+data_title = input('Enter a title for the data:\n')
+print(f'You entered: {data_title}\n')
+
+col1_header = input('Enter the column 1 header:\n')
+print(f'You entered: {col1_header}\n')
+col2_header = input('Enter the column 2 header:\n')
+print(f'You entered: {col2_header}\n')
+
+while full_line != '-1':
+   full_line = input('Enter a data point (-1 to stop input):\n')
+   
+   while full_line.find(comma) == -1 and full_line != '-1':
+     print('Error: No comma in string.\n')
+     full_line = input('Enter a data point (-1 to stop input):\n')
+   
+   if full_line != '-1':
+      my_tokens = full_line.split(comma)
+   
+      # Too many tokens = too many commas
+      while len(my_tokens) > 2 and full_line != '-1':
+         print('Error: Too many commas in input.\n')
+         full_line = input('Enter a data point (-1 to stop input):\n')
+         
+         if full_line != '-1':
+            my_tokens = full_line.split(comma)
+   
+   if full_line != '-1':
+      while not my_tokens[1][1:].isdigit() and full_line != '-1':
+         print('Error: Comma not followed by an integer.\n')
+         full_line = input('Enter a data point (-1 to stop input):\n')
+         
+         if full_line != '-1':
+            my_tokens = full_line.split(comma)
+   
+   if full_line != '-1':   
+      data_string = my_tokens[0];
+      data_int = int(my_tokens[1][1:])
+      print('Data string:', data_string)
+      print (f'Data integer: {data_int}\n')
+   
+      data_cats.append(data_string)
+      data_nums.append(data_int)
+
+print()
+print(f'{data_title:>33}')
+print(f'{col1_header:<20}|{col2_header:>23}')
+print('--------------------------------------------')
+for i in range (len(data_cats)):
+   print(f'{data_cats[i]:<20}|{str(data_nums[i]):>23}')
+
+for i in range (len(data_cats)):
+   print(f'\n{data_cats[i]:>20}', end = " ")
+   for j in range(data_nums[i]):
+      print('*', end = "")
+   
+print()
